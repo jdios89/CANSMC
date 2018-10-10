@@ -82,6 +82,7 @@ class CANsmc
 		float encoder_posd1;
 		float encoder_posd2;
 		float encoder_posd3;
+		float offsetscalibration[4];
 
 
 		
@@ -92,6 +93,7 @@ class CANsmc
 		unsigned long _timetotimeout; 
 		float _dt; 
 		uint32_t _lt; 
+
 };
 
 #endif

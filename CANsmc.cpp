@@ -17,6 +17,14 @@ CANsmc::CANsmc(FlexCAN* CANbus, Stream* port, uint8_t nodesid[4])
   offsets[1] = -pi12;
   offsets[2] = pi12;
   offsets[3] = pi12;
+
+  // This was computed from matlab using a self-calibration method
+  // to reduce the error in the forward kinematics 
+  offsetscalibration[0] = 0.013144336131269;
+  offsetscalibration[1] = -0.001705550151094;
+  offsetscalibration[2] = 0.096971874003720;
+  offsetscalibration[3] = -0.007045195061084;
+  
    
 }
 
@@ -116,6 +124,9 @@ void CANsmc::readVariables(){
     joints_velocity[i] = joints_velocity[i] / REDUCTION;
     joints_position[i] = float(encoder_pos[i]) * COUNTS_TO_RAD / REDUCTION;
     joints_position[i] = joints_position[i] - offsets[i];
+
+    joints_position[i] = joints_position[i] + offsetscalibration[i];
+
 
   }
   
